@@ -1,4 +1,5 @@
 flask
+flask_cors
 pymorphy2
 pymorphy2-dicts-ru
 pandas
