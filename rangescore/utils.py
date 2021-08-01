@@ -22,12 +22,10 @@ def process_text(data):
     data = re.sub(r'[.,/;:''"]', '', data)
     return lem_text(data)
 
-def percentiles(text):
+def coverages(text):
     words = process_text(text)
     d = fl.reindex(words)['index'].fillna(0)
-    result = ""
-    for value in [0.8, 0.9, 0.97]:
-        result += (str(int(100 * value)) 
-            + "th-percentile vocabulary size for this text is " 
-            + str(int(d.quantile(value)))) + "\n"
-    return result
+    info = []
+    for lvl in [500, 1000, 1500, 2000, 3000, 4000, 5000, 6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000]:
+        info.append({"level":str(lvl), "coverage": len(d[d<=lvl])/len(d)})
+    return {"data": info}

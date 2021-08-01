@@ -1,5 +1,5 @@
 from flask import Flask, request
-from rangescore.utils import percentiles
+from rangescore.utils import coverages
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -9,5 +9,6 @@ CORS(app)
 def lemmmatize(lang):
     if lang == 'ru' and request.method == 'POST':
         print(request.json)
-        return percentiles(request.json['text'])
+        print(p:=coverages(request.json['text']))
+        return p
     return lang
