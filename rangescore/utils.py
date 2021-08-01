@@ -17,15 +17,18 @@ def remove_yo(s):
 def process_text(data):
     data = re.sub(r'\n+', ' ', data)
     # remove capitalized words (assumed to be names)
-    data = re.sub(r'\b[A-Z]\w+\b', '', data)
+    data = re.sub(r'[ЁА-Я][ёа-яЁА-Я]+', '', data)
+    # remove latin
+    data = re.sub(r'\w', '', data)
     # remove puncutation
-    data = re.sub(r'[.,/;:''"]', '', data)
+    data = re.sub(r'_[.,/;:''"]', '', data)
     return lem_text(data)
 
 def coverages(text):
     words = process_text(text)
     d = fl.reindex(words)['index'].fillna(0)
     info = []
-    for lvl in [500, 1000, 1500, 2000, 3000, 4000, 5000, 6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000]:
+    for lvl in [500, 1000, 1500, 2000, 3000, 4000, 5000, 6000, 8000, 10000,
+    12000, 15000, 20000, 25000, 30000, 40000, 50000]:
         info.append({"level":str(lvl), "coverage": len(d[d<=lvl])/len(d)})
     return {"data": info}
