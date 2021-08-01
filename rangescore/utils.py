@@ -19,7 +19,7 @@ def process_text(data):
     # remove capitalized words (assumed to be names)
     data = re.sub(r'[ЁА-Я][ёа-яЁА-Я]+', '', data)
     # remove latin
-    data = re.sub(r'\w', '', data)
+    data = re.sub(r'[a-zA-Z]', '', data)
     # remove puncutation
     data = re.sub(r'_[.,/;:''"]', '', data)
     return lem_text(data)
